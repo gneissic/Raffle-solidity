@@ -101,5 +101,20 @@ it("returns true if enough time has passed, has players, eth, and is open", asyn
         //     assert(raffleState.toNumber() == 1)
 
         // })
+
+
+    })
+    
+    describe("fulfillRandomWords", function () {
+        
+      beforeEach( async function () {
+        await raffle.enterRaffle()
+        await network.provider.send("evm_increaseTime", [interval.toNumber() + 1])
+        await network.provider.request({method: "evm_mine", params: []})
+      })
+      it("reverts if performUpKeep is not called correctly", async function() {
+           await expect(vrfCoordinatorV2Mock.fulfillRandomWords(0, raffle.address)).to.be.revertedWith("nonexistent request")
+           await expect(vrfCoordinatorV2Mock.fulfillRandomWords(1, raffle.address)).to.be.revertedWith("nonexistent request")
+      })
     })
     })
