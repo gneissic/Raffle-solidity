@@ -105,7 +105,6 @@ contract Raffle is VRFConsumerBaseV2, AutomationCompatible{
          revert Raffle_BALANCETRANSFERFAILED();
        } 
     emit randomWinnerPicked(addressOfWinner);
-
  }
 
  function getEntranceFee() public view returns(uint256) {
@@ -131,5 +130,8 @@ contract Raffle is VRFConsumerBaseV2, AutomationCompatible{
  }
  function getInterval () public view returns(uint256){
    return i_interval;
+ }
+ function getLatestTimeStamp() public view returns(uint256) {
+  return s_lastTimeStamp;
  }
 }
